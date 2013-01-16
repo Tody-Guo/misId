@@ -4,7 +4,7 @@
 *	Free software under GPLv3
 *
 *	Function: get SN data from MIS ShopFloor
-*	Version: 1.0.1
+*	Version: 1.0.2
 *	FileName: misId.c
 *	Author: Tody Guo
 *
@@ -21,7 +21,7 @@
 #include "Service1Soap.nsmap"
 
 #define progname	"misId"
-#define	version		"1.0.1"
+#define	version		"1.0.2"
 
 void usage(void)
 {
@@ -66,7 +66,14 @@ int main(int argc, char *argv[])
 				exit(1);
 			}
 		}
-	} else if ( argc == 3)
+		else
+		{
+			fprintf(stdout, "network issue!");
+			exit(1);
+		}
+	} 
+	else
+	if ( argc == 3)
 	{
 		snM2Id.serial_USCOREnumber = argv[1];
 		snM2Id.m2_USCOREboard_USCOREid = argv[2];
@@ -81,10 +88,14 @@ int main(int argc, char *argv[])
 				exit(1);
 			}
 		}
+		else
+		{
+			fprintf(stdout, "network issue!");
+			exit(1);
+		}
 	} else {
 		usage();
 	}
-	
 	
 	soap_end(soap);
 	free(soap);
